@@ -25,6 +25,8 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
             'profesion_nombre' => ['required', 'string', 'max:255'],
             'profesion_otro' => ['nullable', 'string', 'max:255'],
+            'twitter' => ['nullable', 'url'],
+            'biografia' => ['required', 'string', 'max:255'],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
         ])->validate();
         $profesion = $input['profesion_nombre'];
@@ -36,6 +38,8 @@ class CreateNewUser implements CreatesNewUsers
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
             'profesion_nombre' => $profesion,
+            'twitter' => $input['twitter'],
+            'biografia' => $input['biografia'],
         ]);
     }
 }

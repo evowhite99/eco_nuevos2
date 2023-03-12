@@ -33,6 +33,18 @@
                              name="password_confirmation" required autocomplete="new-password"/>
             </div>
 
+            <div>
+                <x-jet-label for="twitter" value="{{ __('twitter') }}"/>
+                <x-jet-input id="twitter" class="block mt-1 w-full" type="text" name="twitter" :value="old('twitter')"/>
+            </div>
+
+            <div>
+                <x-jet-label for="biografia" value="{{ __('biografia') }}"/>
+                <x-jet-input id="biografia" class="block mt-1 w-full" type="text" name="biografia"
+                             :value="old('biografia')" required
+                             autofocus autocomplete="biografia"/>
+            </div>
+
             <x-jet-label for="profesion_nombre" value="{{ __('Profesión') }}"/>
             <select name="profesion_nombre" id="profesion_nombre" class="block mt-1 w-full" onchange="showInput()">
                 <option value="">Seleccione una profesión</option>

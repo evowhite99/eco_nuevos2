@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
             $table->string('profile_photo_path', 2048)->nullable();
             $table->softDeletes();
             $table->string('profesion_nombre')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('biografia')->nullable();
             $table->timestamps();
         });
     }
