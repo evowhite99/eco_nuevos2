@@ -43,7 +43,7 @@
 
             @if ($order->status == 1)
                 <x-button-link class="ml-auto" href="{{route('orders.payment', $order)}}">
-                    Ir a pagar
+                    Ir a pagar / Cancelar pedido
                 </x-button-link>
             @endif
         </div>

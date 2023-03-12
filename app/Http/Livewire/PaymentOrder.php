@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Order;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use App\Models\Product;
@@ -35,6 +36,25 @@ class PaymentOrder extends Component
             $product->save();
         }
     }
+
+
+    public function eliminarPedido() {
+        $this->restoreStock();
+        $this->order->delete();
+        return redirect()->route('orders.index');
+    }
+
+
+    public function restoreStock() {
+        $items = json_decode($this->order->content);
+        foreach ($items as $item) {
+            $product = Product::find($item->id);
+            $product->quantity += $item->qty;
+            $product->sold -= $item->qty;
+            $product->save();
+        }
+    }
+
 
     public function enEspera() {
         $items = json_decode($this->order->content);
