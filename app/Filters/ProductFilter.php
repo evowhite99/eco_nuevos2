@@ -15,6 +15,8 @@ class ProductFilter extends QueryFilter
             'selectedBrand' => 'filled',
             'selectedPrice' => 'filled',
             'selectedDate' => 'filled',
+            'selectedColor' => 'filled',
+            'selectedSize' => 'filled',
         ];
     }
 
@@ -50,5 +52,17 @@ class ProductFilter extends QueryFilter
         }
     }
 
+
+    public function selectedColor($query, $selectedColor) {
+        if ($selectedColor == 0) {
+            $query->selectedColor($selectedColor);
+        }
+    }
+
+    public function selectedSize($query, $selectedSize) {
+        if ($selectedSize == 0) {
+            $query->selectedSize($selectedSize);
+        }
+    }
 
 }
