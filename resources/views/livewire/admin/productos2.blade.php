@@ -51,6 +51,19 @@
             <label for="selectedDate">Fecha de Creación:</label>
             <input type="date" wire:model="selectedDate" id="selectedDate" class="form-control">
         </div>
+        <div> Colores:
+            <select id="selectedColor" wire:model="selectedColor">
+                <option value=1>Todos</option>
+                <option value=0>Con colores</option>
+            </select>
+        </div>
+
+        <div> Tallas:
+            <select id="selectedSize" wire:model="selectedSize">
+                <option value=1>Todos</option>
+                <option value=0>Con tallas</option>
+            </select>
+        </div>
 
 
         <div class="font-bold">
@@ -156,6 +169,20 @@
                         <option value=0 dusk="showCreated0">Ocultar</option>
                     </select>
                 </th>
+                <th>
+                    <label for="showColor">Color:</label>
+                    <select id="showColor" wire:model="showColor">
+                        <option value=1>Mostrar</option>
+                        <option value=0>Ocultar</option>
+                    </select>
+                </th>
+                <th>
+                    <label for="showSize">Tallas:</label>
+                    <select id="showSize" wire:model="showSize">
+                        <option value=1>Mostrar</option>
+                        <option value=0>Ocultar</option>
+                    </select>
+                </th>
             </tr>
         </table>
         @if($products->count())
@@ -227,14 +254,21 @@
                             Fecha
                         </th>
                     @endif
-                    <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Colores
-                    </th>
-                    <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Tallas
-                    </th>
+                    @if($showColor)
+
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Colores
+                        </th>
+                    @endif
+
+                    @if($showSize)
+
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Tallas
+                        </th>
+                    @endif
 
 
                 </tr>
@@ -317,42 +351,47 @@
                                 <div>{{ $product->created_at}}</div>
                             </td>
                         @endif
-                        <td class="px-6 py-4 whitespace-nowrap">
+                        @if($showColor)
 
-                            @if($product->colors->isNotEmpty())
-                                <table>
-                                    <tr>
-                                        @foreach($product->colors as $color)
-                                            <td class="font-bold">{{ $color->name }}</td>
-                                        @endforeach
+                            <td class="px-6 py-4 whitespace-nowrap">
 
-                                    </tr>
-                                </table>
-                            @else
-                                @if($product->subcategory->category_id == 5)
-                                    <div class="font-bold">
-                                        white blue red black
-                                    </div>
+                                @if($product->colors->isNotEmpty())
+                                    <table>
+                                        <tr>
+                                            @foreach($product->colors as $color)
+                                                <td class="font-bold">{{ $color->name }}</td>
+                                            @endforeach
 
+                                        </tr>
+                                    </table>
+                                @else
+                                    @if($product->subcategory->category_id == 5)
+                                        <div class="font-bold">
+                                            white blue red black
+                                        </div>
+
+                                    @else
+                                        N/A
+                                    @endif
+                                @endif
+                            </td>
+                        @endif
+                        @if($showSize)
+
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                @if($product->sizes->isNotEmpty())
+                                    <table>
+                                        <tr>
+                                            @foreach($product->sizes as $size)
+                                                <td class="font-bold">{{ $size->name }}</td>
+                                            @endforeach
+                                        </tr>
+                                    </table>
                                 @else
                                     N/A
                                 @endif
-                            @endif
-                        </td>
-
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            @if($product->sizes->isNotEmpty())
-                                <table>
-                                    <tr>
-                                        @foreach($product->sizes as $size)
-                                            <td class="font-bold">{{ $size->name }}</td>
-                                        @endforeach
-                                    </tr>
-                                </table>
-                            @else
-                                N/A
-                            @endif
-                        </td>
+                            </td>
+                        @endif
 
 
                     </tr>

@@ -18,6 +18,10 @@ class Productos2 extends Component
     public $selectedPrice;
     public $selectedDate;
 
+    public $selectedColor = true;
+
+    public $selectedSize = true;
+
 
     public $pagination = 10;
     public $sortField = 'name';
@@ -34,6 +38,9 @@ class Productos2 extends Component
     public $showSold = true;
     public $showStock = true;
     public $showCreated = true;
+
+    public $showColor = true;
+    public $showSize = true;
 
 
     public function updatingSearch() {
@@ -82,13 +89,25 @@ class Productos2 extends Component
                }
               $products = $query
                    ->where('name', 'LIKE', "%{$this->search}%")*/
-        $products = Product::query()->applyFilters([
-            'search' => $this->search,
-            'selectedCategory' => $this->selectedCategory,
-            'selectedBrand' => $this->selectedBrand,
-            'selectedPrice' => $this->selectedPrice,
-            'selectedDate' => $this->selectedDate,
-        ])
+        $query = Product::query();
+        if ($this->selectedColor == 0) {
+            $query->whereHas('subcategory', function ($query) {
+                $query->where('color', true);
+            });
+        }
+        if ($this->selectedSize == 0) {
+            $query->whereHas('subcategory', function ($query) {
+                $query->where('size', true);
+            });
+        }
+        $products = $query
+            /* $products = Product::query()->applyFilters([
+                 'search' => $this->search,
+                 'selectedCategory' => $this->selectedCategory,
+                 'selectedBrand' => $this->selectedBrand,
+                 'selectedPrice' => $this->selectedPrice,
+                 'selectedDate' => $this->selectedDate,
+             ])*/
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->pagination);
         return view('livewire.admin.productos2', compact('products'), [
@@ -102,6 +121,9 @@ class Productos2 extends Component
                 'showSold' => $this->showSold,
                 'showStock' => $this->showStock,
                 'showCreated' => $this->showCreated,
+                'showColor' => $this->showColor,
+                'showSize' => $this->showSize,
+                'selectedColor' => $this->selectedColor,
                 'categories' => Category::all(),
                 'brands' => Brand::all(),
             ]
