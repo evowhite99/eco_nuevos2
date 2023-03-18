@@ -227,12 +227,15 @@
                             Fecha
                         </th>
                     @endif
-                    @if($showEdit)
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Colores
+                    </th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Tallas
+                    </th>
 
-                        <th scope="col" class="relative px-6 py-3">
-                            <span class="sr-only">Editar</span>
-                        </th>
-                    @endif
 
                 </tr>
                 </thead>
@@ -314,6 +317,43 @@
                                 <div>{{ $product->created_at}}</div>
                             </td>
                         @endif
+                        <td class="px-6 py-4 whitespace-nowrap">
+
+                            @if($product->colors->isNotEmpty())
+                                <table>
+                                    <tr>
+                                        @foreach($product->colors as $color)
+                                            <td class="font-bold">{{ $color->name }}</td>
+                                        @endforeach
+
+                                    </tr>
+                                </table>
+                            @else
+                                @if($product->subcategory->category_id == 5)
+                                    <div class="font-bold">
+                                        white blue red black
+                                    </div>
+
+                                @else
+                                    N/A
+                                @endif
+                            @endif
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            @if($product->sizes->isNotEmpty())
+                                <table>
+                                    <tr>
+                                        @foreach($product->sizes as $size)
+                                            <td class="font-bold">{{ $size->name }}</td>
+                                        @endforeach
+                                    </tr>
+                                </table>
+                            @else
+                                N/A
+                            @endif
+                        </td>
+
 
                     </tr>
                 @endforeach
