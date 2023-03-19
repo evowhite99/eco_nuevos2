@@ -67,7 +67,7 @@
         <div class="form-group">
             <label for="sold">Vendidos:</label>
             <select wire:model="selectedVendidos" id="sold" class="form-control">
-                <option value="">Todos los vendidos</option>
+                <option value="">Todos los vendidos por marca</option>
                 @foreach($brands as $brand)
                     <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                 @endforeach

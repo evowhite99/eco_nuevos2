@@ -93,23 +93,17 @@ class Productos2 extends Component
                }
               $products = $query
                    ->where('name', 'LIKE', "%{$this->search}%")*/
-        $query = Product::query();
-        if ($this->selectedVendidos) {
-            $query->where('sold', $this->selectedVendidos);
-        }
-        if ($this->selectedEstado) {
-            $query->where('status', $this->selectedEstado);
-        }
-        $products = $query
-            /*  $products = Product::query()->applyFilters([
-                  'search' => $this->search,
-                  'selectedCategory' => $this->selectedCategory,
-                  'selectedBrand' => $this->selectedBrand,
-                  'selectedPrice' => $this->selectedPrice,
-                  'selectedDate' => $this->selectedDate,
-                  'selectedColor' => $this->selectedColor,
-                  'selectedSize' => $this->selectedSize,
-              ])*/
+        $products = Product::query()->applyFilters([
+            'search' => $this->search,
+            'selectedCategory' => $this->selectedCategory,
+            'selectedBrand' => $this->selectedBrand,
+            'selectedPrice' => $this->selectedPrice,
+            'selectedDate' => $this->selectedDate,
+            'selectedColor' => $this->selectedColor,
+            'selectedSize' => $this->selectedSize,
+            'selectedEstado' => $this->selectedEstado,
+            'selectedVendidos' => $this->selectedVendidos,
+        ])
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->pagination);
         return view('livewire.admin.productos2', compact('products'), [

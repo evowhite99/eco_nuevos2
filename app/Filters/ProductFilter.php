@@ -17,7 +17,22 @@ class ProductFilter extends QueryFilter
             'selectedDate' => 'filled',
             'selectedColor' => 'filled',
             'selectedSize' => 'filled',
+            'selectedVendidos' => 'filled',
+            'selectedEstado' => 'filled',
         ];
+    }
+
+
+    public function selectedVendidos($query, $selectedVendidos) {
+        if ($selectedVendidos) {
+            $query->selectedVendidos($selectedVendidos);
+        }
+    }
+
+    public function selectedEstado($query, $selectedEstado) {
+        if ($selectedEstado) {
+            $query->selectedEstado($selectedEstado);
+        }
     }
 
     public function search($query, $search) {

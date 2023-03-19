@@ -14,4 +14,14 @@ class ProductBuilder extends QueryBuilder
             $query->where('size', true);
         });
     }
+
+    public function selectedVendidos($selectedVendidos) {
+        $this->where('sold', $selectedVendidos);
+
+    }
+
+    public function selectedEstado($selectedEstado) {
+        $this->where('status', $selectedEstado);
+
+    }
 }
