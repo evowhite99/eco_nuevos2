@@ -64,6 +64,24 @@
                 <option value=0>Con tallas</option>
             </select>
         </div>
+        <div class="form-group">
+            <label for="sold">Vendidos:</label>
+            <select wire:model="selectedVendidos" id="sold" class="form-control">
+                <option value="">Todos los vendidos</option>
+                @foreach($brands as $brand)
+                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="status">Estados:</label>
+            <select wire:model="selectedEstado" id="status" class="form-control">
+                <option value="">Todos los estados</option>
+                <option value="1">Borrador</option>
+                <option value="2">Publicados</option>
+            </select>
+        </div>
 
 
         <div class="font-bold">
@@ -92,6 +110,22 @@
             <button type="button" class="bg-green-200 font-bold">
 
                 <a href="#" wire:click="sortBy('brand_id.name')" dusk="ordenarMarca">Marca</a>
+            </button>
+
+        </th>
+
+        <th scope="col">
+            <button type="button" class="bg-green-200 font-bold">
+
+                <a href="#" wire:click="sortBy('sold')">Vendidos</a>
+            </button>
+
+        </th>
+
+        <th scope="col">
+            <button type="button" class="bg-green-200 font-bold">
+
+                <a href="#" wire:click="sortBy('status')">Estado</a>
             </button>
 
         </th>
